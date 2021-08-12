@@ -1,0 +1,50 @@
+<p class="succe"><%= flash[:succe] %></p>
+    <h1>Books</h1>
+    <table>
+        <tr>
+          <th>Title</th>
+          <th>Body</th>
+          <th colspan="3"></th>
+        </tr>
+        <% @books.each do |book| %>
+        <tr>
+          <td>
+            <span><%= book.title %></span>
+          </td>
+          <td>
+            <span><%= book.body %></span>
+          </td>
+          <td>
+            <%= link_to "Show", book_path(book) %>
+          </td>
+          <td>
+            <%= link_to "Edit", edit_book_path(book) %>
+          </td>
+          <td>
+            <%= link_to "Destroy", book_path(book), method: :delete, data: { confirm: "削除しますか？"} %>
+          </td>
+          <% end %>
+        </tr>
+    </table>
+
+<h1>New book</h1>
+<% if @book.errors.any? %>
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+    error
+  <% end %>
+<% end %>
+
+<%= form_with model:@book, local:true do |f| %>
+
+<h4>Title</h4>
+<%= f.text_field :title %>
+
+<h4>Body</h4>
+<%= f.text_area :body %>
+
+<p>
+<%= f.submit 'Create Book' %>
+</p>
+
+<% end %>
